@@ -19,6 +19,13 @@ export default function Home() {
     }
   }
 
+  const deleteTodo = (index: number) => {
+    const updatedTodos = [...todos];
+    updatedTodos.splice(index, 1);
+    setTodos(updatedTodos);
+    console.log("clicked")
+  }
+
   useEffect(() => { }, [todo]);
   useEffect(() => { console.log(todos) }, [todos]);
 
@@ -49,6 +56,7 @@ export default function Home() {
         <section className="relative overflow-x-auto shadow-md sm:rounded-lg rounded border-2 border-main-accent mt-6 my-16">
           <Table
             content={todos}
+            onDelete={deleteTodo}
           />
         </section>
       </div>
