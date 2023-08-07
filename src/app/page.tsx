@@ -1,20 +1,17 @@
 'use client'
 
 import Table from '@/components/table';
+import { todoType } from '@/types/todoType';
 import { useEffect, useState } from 'react';
-
-type Todo = {
-  name: string;
-}
 
 export default function Home() {
   const [todo, setTodo] = useState('')
-  const [todos, setTodos] = useState<string[]>([]);
+  const [todos, setTodos] = useState<todoType[]>([]);
 
   const addTodo = (event: React.FormEvent) => {
     event.preventDefault();
     if (todo.trim() !== '') {
-      setTodos([...todos, todo]);
+      setTodos([...todos, {task: todo, completed: false}]);
       setTodo('');
     }
   }
@@ -26,8 +23,11 @@ export default function Home() {
     console.log("clicked")
   }
 
-  useEffect(() => { }, [todo]);
-  useEffect(() => { console.log(todos) }, [todos]);
+  const completeTodo = (index: number) => {
+    const updatedTodos = [...todos];
+    updatedTodos[index] = { ...updatedTodos[index], completed: true };
+    setTodos(updatedTodos);
+  }
 
   return (
     <main className="bg-main-primary rounded-lg m-16 shadow-2xl">
@@ -55,8 +55,9 @@ export default function Home() {
 
         <section className="relative overflow-x-auto shadow-md sm:rounded-lg rounded border-2 border-main-accent mt-6 my-16">
           <Table
-            content={todos}
+            todos={todos}
             onDelete={deleteTodo}
+            onComplete={completeTodo}
           />
         </section>
       </div>
