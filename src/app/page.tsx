@@ -1,7 +1,7 @@
 'use client'
 
 import Table from '@/components/table';
-import { todoType } from '@/types/todoType';
+import { TaskStatus, todoType } from '@/types/todoType';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
   const addTodo = (event: React.FormEvent) => {
     event.preventDefault();
     if (todo.trim() !== '') {
-      setTodos([...todos, {task: todo, completed: false}]);
+      setTodos([...todos, {task: todo, status: TaskStatus.NOT_DONE}]);
       setTodo('');
     }
   }
@@ -25,8 +25,12 @@ export default function Home() {
 
   const completeTodo = (index: number) => {
     const updatedTodos = [...todos];
-    updatedTodos[index] = { ...updatedTodos[index], completed: true };
+    updatedTodos[index] = { ...updatedTodos[index], status: TaskStatus.DONE };
     setTodos(updatedTodos);
+  }
+
+  const editTodo = (index: number, task: todoType) => {
+    
   }
 
   return (

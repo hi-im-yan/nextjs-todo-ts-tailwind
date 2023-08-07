@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Check, Pencil, Trash2 } from "lucide-react";
-import { todoType } from '@/types/todoType';
+import { TaskStatus, todoType } from '@/types/todoType';
 
 interface TableDataProps {
     todos: todoType[];
@@ -25,7 +25,7 @@ export default function Table({ todos, onDelete, onComplete }: TableDataProps) {
                             scope="row"
                             className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                         >
-                            {task.completed === true ? <del>{task.task}</del> : task.task}
+                            {task.status === TaskStatus.DONE ? <del>{task.task}</del> : task.task}
                         </td>
                         <td className="px-6 py-4 flex justify-start align-center gap-4">
                             <a

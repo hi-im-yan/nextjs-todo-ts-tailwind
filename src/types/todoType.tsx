@@ -1,4 +1,10 @@
 export type todoType = {
     task: string,
-    completed: boolean | false
+    status: TaskStatus | TaskStatus.NOT_DONE
+}
+
+export enum TaskStatus {
+    NOT_DONE,
+    EDITING,
+    DONE
 }
