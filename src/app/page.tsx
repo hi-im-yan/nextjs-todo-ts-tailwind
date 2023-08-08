@@ -3,6 +3,8 @@
 import Table from '@/components/table';
 import { TaskStatus, todoType } from '@/types/todoType';
 import { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
 
 export default function Home() {
   const [todo, setTodo] = useState('')
@@ -11,7 +13,7 @@ export default function Home() {
   const addTodo = (event: React.FormEvent) => {
     event.preventDefault();
     if (todo.trim() !== '') {
-      setTodos([...todos, {task: todo, status: TaskStatus.NOT_DONE}]);
+      setTodos([...todos, {id: uuidv4(), task: todo, status: TaskStatus.NOT_DONE}]);
       setTodo('');
     }
   }
@@ -29,8 +31,10 @@ export default function Home() {
     setTodos(updatedTodos);
   }
 
-  const editTodo = (index: number, task: todoType) => {
-    
+  const editTodo = (index: number, taskName: string) => {
+    const updatedTodos = [...todos];
+    updatedTodos[index] = { ...updatedTodos[index], task: taskName, status: TaskStatus.NOT_DONE };
+    setTodos(updatedTodos);
   }
 
   return (
@@ -62,6 +66,7 @@ export default function Home() {
             todos={todos}
             onDelete={deleteTodo}
             onComplete={completeTodo}
+            onEdit={editTodo}
           />
         </section>
       </div>
