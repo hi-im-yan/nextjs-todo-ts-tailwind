@@ -1,0 +1,13 @@
+node_modules
+.next
+out
+*.log
+*.tsbuildinfo
+.vscode
+.idea
+*.sublime-project
+*.sublime-workspace
+.git
+.gitignore
+*.tmp
+*.swp
